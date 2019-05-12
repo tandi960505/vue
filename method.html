@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="clickBtn">点击我</button>
+    </div>
+</body>
+<!-- js脚本 -->
+<script type="text/javascript">
+    const app = new Vue({
+        el: '#app',
+        data: {
+           stringData: 'hello,vue'
+        },
+        // computed和methods一样为内置函数
+        // 用于定义自定义方法
+        methods: {
+            clickBtn () {
+                window.alert('hello vue!!!')
+            }
+        },
+    });
+</script>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>{{content}}</h3>
+        <button @click="app.$destroy()">销毁对象</button>
+    </div>
+</body>
+<!-- js脚本 -->
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            // 明确content是一个字符类型
+            content: ''
+        },
+        // created(){}，其实就是created:function(){}的简写
+        // 对象创建完成之后触发
+        created() {
+            // 在对象创建之后给content赋值
+            this.content = 'hi vue ~~~'
+        },
+        // 挂载之后触发
+        mounted() {
+            console.info('成功挂载到标签上')
+        },
+        // 销毁之前触发
+        beforeDestroy() {
+            console.info('准备被销毁')
+        },
+        
+    });
+</script>
+</html>

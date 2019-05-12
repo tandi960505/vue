@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>{{ stringData.split(',').reverse() }}</h3>
+        <h3>{{ strSplitOrReverse }}</h3>
+    </div>
+</body>
+<!-- js脚本 -->
+<script type="text/javascript">
+    const app = new Vue({
+        el: '#app',
+        data: {
+           stringData: 'hello,vue'
+        },
+        // computed和filters一样为内置函数
+        // 如果遇到复杂的计算的，在表达式中操作的显然会让代码显得臃肿，日后也增加维护难度
+        computed: {
+          strSplitOrReverse () {
+              return this.stringData.split(',').reverse()
+          }  
+        },
+    });
+</script>
+</html>

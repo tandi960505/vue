@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>{{ stringData | strFilter }}</h3>
+    </div>
+</body>
+<!-- js脚本 -->
+<script type="text/javascript">
+    const app = new Vue({
+        el: '#app',
+        data: {
+           stringData: '你妈逼,hahaha'
+        },
+        filters: {
+            // 将字符串中的脏话屏蔽
+            strFilter (str) {
+                return str.replace(/你妈逼/, '***');
+            }
+        }
+    });
+</script>
+</html>

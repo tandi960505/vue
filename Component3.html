@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- vue可以驼峰发和下划线两种命名规则自动转换 -->
+        <global-component :my-msg="content"></global-component>
+        <br>   
+        修改值：<input type="text" v-model="content" />
+    </div>
+</body>
+<!-- js脚本 -->
+<script type="text/javascript">
+
+    // 使用Vue对象注册一个全局组件
+    Vue.component('global-component', {
+        // 从这里例子中看出，props相当于在data中定义了一个空的数据遍变量
+        props: ['myMsg'],
+        template: "<span>{{msgInner}}</span>",
+        data: {
+            // 使用myMsg来初始化msgInner
+            msgInner: this.myMsg
+        }
+    });
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            content: 10
+        }
+    });
+
+</script>
+</html>

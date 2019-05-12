@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 单向绑定当前挂载点vue对象的数据content -->
+        <global-component :msg="content"></global-component>
+        <br>   
+        修改值：<input type="text" v-model="content" />
+    </div>
+</body>
+<!-- js脚本 -->
+<script type="text/javascript">
+
+    // 使用Vue对象注册一个全局组件
+    Vue.component('global-component', {
+        // 使用props字段，可以给template中的表达式传递参数
+        // 同时，props相当于在模板中注册了一个属性
+        props: ['msg'],
+        template: "<span>{{msg}}</span>"
+    });
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            content: 10
+        }
+    });
+
+</script>
+</html>

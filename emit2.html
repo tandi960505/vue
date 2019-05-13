@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h3>总数：{{total}}</h3>
+        <!-- 使用双向绑定 -->
+        <global-component v-model="total"></global-component>
+        <!-- 正常方法 -->
+        <!-- <global-component @input="getTotalHandler"></global-component> -->
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    Vue.component('global-component', {
+        template: "<div><button @click='addHandler'>加1</button></div>",
+        data () {
+            return { count: 0 }
+        },
+        methods: {
+            addHandler () {
+                this.count++;
+                // 相当于将this.count赋值给total
+                this.$emit('input', this.count);
+            }
+        },
+    });
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            total: 0
+        },
+        methods: {
+            getTotalHandler (value) {
+                this.total = value;
+            }
+        }
+    });
+
+</script>
+</html>
+

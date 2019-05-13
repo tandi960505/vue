@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <global-component></global-component>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    // 使用一个空的vue对象来做事件广播
+    const bus = new Vue();
+
+    Vue.component('global-component', {
+        template: "<div><button @click='addHandler'>加1</button></div>",
+        data () {
+            return { count: 0 }
+        },
+        methods: {
+            addHandler () {
+                this.count++;
+                // 提交this.count到on-message监听
+                bus.$emit('on-message', this.count);
+            }
+        },
+    });
+
+    const app = new Vue({
+        el: '#app',
+        mounted() {
+            // 监听on-message
+            bus.$on('on-message', function(value){
+               window.alert(value)
+            })
+        }
+    });
+
+</script>
+</html>
+

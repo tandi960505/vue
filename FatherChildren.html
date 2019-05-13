@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        total = {{total}}
+        count = {{count}}
+        <global-component ref="one"></global-component>
+        <button @click='getChildrenCount'>count加1</button>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    Vue.component('global-component', {
+        template: "<div><button @click='addHandler'>total加1</button></div>",
+        data () {
+            // 返回一份独立的数据
+            return { count: 0 }
+        },
+        methods: {
+            addHandler () {
+               // 直接访问父节组件的数据
+               this.$parent.total++;
+
+               this.count++;
+            }
+        },
+    });
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            total: 0,
+            count: 1
+        },
+        methods: {
+            getChildrenCount(){
+                // 获取子组件的属性，因为父组件可能包含多个子组件，所以this.$children为数组
+                this.count = this.$children[0].count;
+            }
+        },
+        mounted() {
+            // 除了上的形式还可使this.$refs配合ref="标记"访问
+            console.info(this.$refs.one);
+        },
+    });
+
+</script>
+</html>
+

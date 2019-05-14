@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <global-component :persons="persons">
+            <template slot="listPerson" scope="props">
+                <li>名字={{props.pname}} ... 岁数={{props.page}}</li>
+            </template>
+        </global-component>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    Vue.component('global-component', {
+        props: ['persons'],
+        template: "<ol> " +
+                    "<slot name='listPerson' v-for='p in persons' :pname='p.name' :page='p.age'>没有数据！！！</slot>" 
+                + "</ol>",
+    });
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            persons: [
+                {name:'tandi', age:'23'},
+                {name:'zhangsan', age:'18'}
+            ]
+        }
+    });
+
+</script>
+</html>

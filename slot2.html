@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <global-component>
+            <!-- 特殊插槽和普通插槽不同的地方在于特殊插槽只用来保存属性 -->
+            <!-- 需要配合template标签使用，如<template scope="props">中props就代表模板定义中的slot标签 -->
+            <!-- 但是props只能访问到slot标签的属性 -->
+            <template scope="props">
+                {{props.msg}}
+                <br>
+                {{props}}
+            </template>
+        </global-component>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    Vue.component('global-component', {
+
+        template: "<div> " +
+                    "<slot msg='这是我第1个slot的属性'>这是我第1个slot</slot>" 
+                + "</div>",
+    });
+
+    const app = new Vue({
+        el: '#app'
+    });
+
+</script>
+</html>

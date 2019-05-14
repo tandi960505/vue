@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 当global-component模板内没有定义任何内容，那么slot就会默认作为模板的内容 -->
+        <global-component>
+            <!-- 使用slot：slot='slot的name值' -->
+            <!-- 效果是将slot标签的父容器，即div标签套在当前的p标签外 -->
+            <!-- 即可简单理解普通插槽slot就是一个框，门框 -->
+            <!-- 最形象点说，就是p标签通过slot='firstSlot'告诉解析器，我就是slot标签，
+                我就是名字叫firstSlot的那个slot标签，你把我当成它来渲染即可 -->
+            <p slot="firstSlot">test<p>
+            
+            <!-- 如果定义模板时，slot标签没有设置name属性，那么可以直接像下面这样使用slot -->
+            <!-- <p slot>test<p> -->
+        </global-component>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    Vue.component('global-component', {
+        template: "<div> " +
+                    "<slot name='firstSlot'>这是我第1个slot</slot>" 
+                + "</div>",
+    });
+
+    const app = new Vue({
+        el: '#app'
+    });
+
+</script>
+</html>

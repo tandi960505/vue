@@ -345,3 +345,10 @@ destroyed：对象被销毁（死亡）后触发
 </script>
 </html>
 ```
+
+### 普通插槽
+![](images/12.png)
+
+### 作用域插槽
+![](images/13.png)
+![](images/14.png)

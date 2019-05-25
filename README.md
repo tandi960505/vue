@@ -350,6 +350,98 @@ destroyed：对象被销毁（死亡）后触发
 ### 对vue组件加深理解
 ![](images/component.png)
 
+### 还可以这样定义组件
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <mt></mt>
+    </div>
+</body>
+
+<!-- 还可以这样定义模板html -->
+<script type="text/x-template" id="template-id">
+    <div>
+        <input type="text" placeholder="..." />
+    </div>
+</script>
+
+<script type="text/javascript">
+
+    Vue.component('mt', {
+        template: '#template-id'
+    });
+
+    const app = new Vue({
+        el: '#app'
+    });
+
+</script>
+</html>
+```
+
+### render（渲染）函数
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 向level属性绑定一个值 -->
+        <anchored-heading :level="level">Hello world!</anchored-heading>
+    </div>
+</body>
+
+<script type="text/x-template" id="anchored-heading-template">
+    <h1 v-if="level === 1">
+      <slot></slot>
+    </h1>
+    <h2 v-else-if="level === 2">
+      <slot></slot>
+    </h2>
+    <h3 v-else-if="level === 3">
+      <slot></slot>
+    </h3>
+</script>
+
+<script type="text/javascript">
+   
+   Vue.component('anchored-heading', {
+        //template: '#anchored-heading-template',
+
+        // 使用render（渲染）函数来代替template来创建模板，因为template定义了重复的标签，所以在这种情况，不是很简洁
+        render (createElement) {
+            return createElement(
+                'h' + this.level,   // 标签名称
+                this.$slots.default // 子节点数组
+        )},
+        props: {
+            level: {
+                type: Number,
+                required: true
+            }
+        }
+    })
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            level: 2
+        },
+    });
+
+</script>
+</html>
+```
+
 ### 普通插槽
 ![](images/12.png)
 

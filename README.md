@@ -356,3 +356,55 @@ destroyed：对象被销毁（死亡）后触发
 ### 作用域插槽
 ![](images/13.png)
 ![](images/14.png)
+
+
+## 自定义指令
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" placeholder="输入内容..." v-focus/>
+       <input type="text" placeholder="输入内容..." v-focus/>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    /* directive中的钩子函数
+        bind: 只会被调用一次，在指令绑定到元素上时调用
+        inserted: 指令元素插入到父节点（标签）时调用
+        update: 指令元素所在的模板更新时调用
+        componentUpdate: 指令元素所在的模板完成更新后调用
+        unbind: 指令与元素解绑时调用
+    */
+    let num = 1;
+
+    // 全局自定义指令
+    Vue.directive('focus', {
+        bind (el, binding, vnode) {
+            // el名字是固定的，代表当前的dom对象
+            el.value = num++;
+
+            // binding,代表当前的指令
+            console.info("binding = ", binding);
+            // vue编译生成的虚拟节点，实质就是vue根据当前指令所在的标签生成的vue对象
+            // 注意：虚拟节点是vue2.x对vue1.x的提升
+            console.info("vnode = ", vnode);
+        }
+    });
+
+    const app = new Vue({
+        el: '#app',
+        // 局部自定义指令
+        //directives: {
+        //}
+    });
+
+</script>
+</html>
+```

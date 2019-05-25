@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- 使用script标签加载稳定版vue的cdn文件 -->
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <!-- 挂载点 -->
+    <div id="app"></div>
+</body>
+
+<script src="pane.js"></script>
+<script src="tabs.js"></script>
+
+<!-- 需挂载对象 -->
+<script type="text/javascript">
+    const app = new Vue({
+        el: '#app'
+    });
+</script>
+
+</html>

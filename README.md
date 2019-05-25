@@ -385,7 +385,8 @@ destroyed：对象被销毁（死亡）后触发
 </html>
 ```
 
-### render（渲染）函数
+### render（渲染）函数的基本使用
+> 详细参考官方教程：https://cn.vuejs.org/v2/guide/render-function.html
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -419,6 +420,8 @@ destroyed：对象被销毁（死亡）后触发
 
         // 使用render（渲染）函数来代替template来创建模板，因为template定义了重复的标签，所以在这种情况，不是很简洁
         render (createElement) {
+            // 这个对象是vue2.x的概念，虚拟节点，即这里返回的并不是一个实质的dom
+            // 所谓的虚拟节点其实是差异部分，说白了就和原来dom不同的部分
             return createElement(
                 'h' + this.level,   // 标签名称
                 this.$slots.default // 子节点数组
@@ -441,6 +444,7 @@ destroyed：对象被销毁（死亡）后触发
 </script>
 </html>
 ```
+
 
 ### 普通插槽
 ![](images/12.png)

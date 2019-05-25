@@ -29,7 +29,7 @@ create：对象创建完成之后触发
 
 beforeMount：在将对象挂载到标签之前触发
 
-mount：对象挂载完成后触发
+mounted：对象挂载完成后触发
 
 beforeUpdate：对象状态被更改之前触发
 

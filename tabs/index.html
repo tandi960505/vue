@@ -2,21 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <!-- 使用script标签加载稳定版vue的cdn文件 -->
     <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
 </head>
 <body>
+
     <!-- 挂载点 -->
-    <div id="app"></div>
+    <div id="app">
+
+        <!-- tabs.js组件模板 -->
+        <!-- 双向绑定当前区域的activeKey值 -->
+        <tabs v-model="activeKey" v-cloak>
+        <!--<tabs value="1" v-cloak> 亦可 -->
+
+            <!-- pane.js组件模板 -->
+            <pane label="标签页1" name="1">
+                标签页1内容
+            </pane>
+            <pane label="标签页2" name="2">
+                标签页2内容
+            </pane>
+            <pane label="标签页3" name="3">
+                标签页3内容
+            </pane>
+            
+        </tabs>
+    </div>
+
 </body>
 
 <script src="pane.js"></script>
 <script src="tabs.js"></script>
 
-<!-- 需挂载对象 -->
+<!-- 挂载点对象 -->
 <script type="text/javascript">
     const app = new Vue({
-        el: '#app'
+        el: '#app',
+        data: {
+            activeKey: '1'
+        }
     });
 </script>
 

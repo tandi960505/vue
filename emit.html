@@ -26,12 +26,12 @@
         methods: {
             addHandler () {
                 this.count++;
-                // 相当于将this.count传递给父组件的add属性
+                // 相当于将this.count传递给父组件的add监听
                 this.$emit('add', this.count);
             }, 
             subtractHandler () {
                 this.count--;
-                // 相当于将this.count传递给父组件的subtract属性
+                // 相当于将this.count传递给父组件的subtract监听
                 this.$emit('subtract', this.count);
             }
         },

@@ -346,6 +346,10 @@ destroyed：对象被销毁（死亡）后触发
 </html>
 ```
 
+
+### 对vue组件加深理解
+![](images/component.png)
+
 ### 普通插槽
 ![](images/12.png)
 

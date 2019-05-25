@@ -626,7 +626,7 @@ createElement(
 
 <script type="text/javascript">
 
-    // 组件1
+    // 组件1
     var btn1 = {
         props: {
             data: Number
@@ -636,7 +636,7 @@ createElement(
         }
     }
 
-    // 组件2
+    // 组件2
     var btn2 = {
         props: {
             data: Number

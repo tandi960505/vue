@@ -188,7 +188,7 @@ destroyed：对象被销毁（死亡）后触发
 </script>
 </html>
 ```
-#### 例子2 - 特殊事件名称input使用
+#### 例子2-emit和input事件使用
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -201,6 +201,7 @@ destroyed：对象被销毁（死亡）后触发
     <div id="app">
         <h3>总数：{{total}}</h3>
         <!-- 使用双向绑定 -->
+        <!-- v-model默认 -->
         <global-component v-model="total"></global-component>
         <!-- 正常方法 -->
         <!-- <global-component @input="getTotalHandler"></global-component> -->
@@ -217,7 +218,7 @@ destroyed：对象被销毁（死亡）后触发
         methods: {
             addHandler () {
                 this.count++;
-                // 相当于将this.count赋值给total
+                // 相当于使用input事件将this.count赋值给total
                 this.$emit('input', this.count);
             }
         },
@@ -346,6 +347,12 @@ destroyed：对象被销毁（死亡）后触发
 </html>
 ```
 
+### 普通插槽
+![](images/12.png)
+
+### 作用域插槽
+![](images/13.png)
+![](images/14.png)
 
 ### 对vue组件加深理解
 ![](images/component.png)
@@ -450,7 +457,7 @@ destroyed：对象被销毁（死亡）后触发
 #### createElement参数
 ``` javascript
 createElement(
-    'div', // 标签名字，String类型
+    'div', // 标签名字，String类型或是一个虚拟节点（vnode，即使用createmElement()创建的对象）
     {}, // 模板定义，json对象（自选）
     [] // 子节点，数组类型（自选）
 );
@@ -603,13 +610,72 @@ createElement(
 </html>
 ```
 
-### 普通插槽
-![](images/12.png)
+### 函数化组件使用
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <m :data="data"></m>
+    </div>
+</body>
 
-### 作用域插槽
-![](images/13.png)
-![](images/14.png)
+<script type="text/javascript">
 
+    // 组件1
+    var btn1 = {
+        props: {
+            data: Number
+        },
+        render (createElement) {
+            return createElement('button', '按钮1');
+        }
+    }
+
+    // 组件2
+    var btn2 = {
+        props: {
+            data: Number
+        },
+        render (createElement) {
+            return createElement('button', '按钮2');
+        }
+    }
+
+    // 函数化组件：实质可以理解为一个组件选择器，根据传入的参数来选择需要的组件
+    Vue.component('m', {  
+        props: {
+            data: Number
+        },
+        // 表示当前组件为函数化组件
+        functional: true,
+        render (createElement, context) {
+
+            function getComponent () {
+                var data = context.props.data;
+                if (data === 1) return btn1;
+                if (data === 2) return btn2;
+            }
+
+            // 返回组件
+            return createElement( getComponent() );
+        }
+    })
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            data: 2
+        }
+    });
+
+</script>
+</html>
+```
 
 ## 自定义指令
 ``` html

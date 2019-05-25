@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <m :data="data"></m>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    // 组件1
+    var btn1 = {
+        props: {
+            data: Number
+        },
+        render (createElement) {
+            return createElement('button', '按钮1');
+        }
+    }
+
+    // 组件2
+    var btn2 = {
+        props: {
+            data: Number
+        },
+        render (createElement) {
+            return createElement('button', '按钮2');
+        }
+    }
+
+    // 函数化组件：实质可以理解为一个组件选择器，根据传入的参数来选择需要的组件
+    Vue.component('m', {  
+        props: {
+            data: Number
+        },
+        // 表示当前组件为函数化组件
+        functional: true,
+        render (createElement, context) {
+
+            function getComponent () {
+                var data = context.props.data;
+                if (data === 1) return btn1;
+                if (data === 2) return btn2;
+            }
+
+            // 返回组件
+            return createElement( getComponent() );
+        }
+    })
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            data: 2
+        }
+    });
+
+</script>
+</html>

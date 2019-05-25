@@ -1,7 +1,7 @@
 // 注意：这个组件对应的只是tabs-content下的内容
 
 // 参数1：组件名称
-// 参数2：组件内容
+// 参数2：组件的vue对象
 Vue.component('pane', {
     template: 
         '<div class="pane" v-show="show"> \

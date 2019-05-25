@@ -1,5 +1,5 @@
 // 参数1：组件名称
-// 参数2：组件内容
+// 参数2：组件的vue对象
 Vue.component('tabs', {
     // 模板
     template: '\
@@ -11,7 +11,7 @@ Vue.component('tabs', {
             </div> \
             \
             <div class="tabs-content"> \
-                <!-- 插槽 -->\
+                <!-- 插槽：用于告诉ModelView，将编写在当前tebs模板内的内容，插入到以下slot的位置 -->\
                 <slot></slot> \
             </div>\
         </div>' 

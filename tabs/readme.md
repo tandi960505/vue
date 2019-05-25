@@ -1,5 +1,14 @@
 该例子源自《Vue.js实战》
 
+代码阅读顺序：
+    index.html -> tbas.js -> pane.js
+
+对vue组件的定义理解：
+![](../images/component.png)
+
+
+<!-- index.html渲染后的效果 -->
+``` html
 <div id="app">
 
     <div class="tabs">
@@ -23,3 +32,4 @@
         </div>
     </div>
 </div>
+```

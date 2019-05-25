@@ -387,6 +387,8 @@ destroyed：对象被销毁（死亡）后触发
 
 ### render（渲染）函数的基本使用
 > 详细参考官方教程：https://cn.vuejs.org/v2/guide/render-function.html
+
+#### 使用例子1
 ``` html
 <!DOCTYPE html>
 <html lang="en">
@@ -424,7 +426,7 @@ destroyed：对象被销毁（死亡）后触发
             // 所谓的虚拟节点其实是差异部分，说白了就和原来dom不同的部分
             return createElement(
                 'h' + this.level,   // 标签名称
-                this.$slots.default // 子节点数组
+                this.$slots.default // 子节点数组（节点内容）
         )},
         props: {
             level: {
@@ -444,7 +446,86 @@ destroyed：对象被销毁（死亡）后触发
 </script>
 </html>
 ```
+#### 使用例子2
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <m v-model="v"></m>
+        <mh1></mh1>
+        <mh2></mh2>
+    </div>
+</body>
 
+<script type="text/javascript">
+   
+   // 基本使用
+   Vue.component('m', {
+        render (createElement) {
+            return createElement('input', {
+                // 注册模板属性
+                props: {
+                    value: Number
+                },
+                // 模板标签的html规范属性
+                attrs: {
+                    id: 'ids',
+                    type: 'text',
+                    placeholder: '......'
+                },
+                // 添加原生事件
+                on: {
+                    click: this.clickHandler
+                }
+            }, null);
+        },
+        methods: {
+            // 处理点击事件的函数
+            clickHandler () {
+                alert('hello !!!');
+            }
+        },
+    })
+
+    // 创建父子标签1
+    Vue.component('mh1', {
+        render (createElement) {
+            return createElement('h1', {
+                attrs: {
+                    id: 'h1id'
+                }
+                // 添加子标签 和 slot
+            }, [ createElement('h4', '444'), this.$slots.default=2 ]);
+        }
+    })
+
+   // 创建父子标签2
+   Vue.component('mh2', {
+        render (createElement) {
+            // 创建五个相同的标签
+            return createElement('h2', Array.apply(null, {
+                length: 5
+            }).map(() => {
+                return createElement('h6', '666');
+            }));
+        }
+    })
+
+    const app = new Vue({
+        el: '#app',
+        data: {
+            v: 2
+        }
+    });
+
+</script>
+</html>
+```
 
 ### 普通插槽
 ![](images/12.png)

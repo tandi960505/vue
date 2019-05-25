@@ -34,7 +34,7 @@
             // 所谓的虚拟节点其实是差异部分，说白了就和原来dom不同的部分
             return createElement(
                 'h' + this.level,   // 标签名称
-                this.$slots.default // 子节点数组
+                this.$slots.default // 子节点数组（节点内容）
         )},
         props: {
             level: {

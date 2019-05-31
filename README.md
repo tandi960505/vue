@@ -727,3 +727,17 @@ createElement(
 </script>
 </html>
 ```
+
+
+
+## 关于npm命令
+
+* 项目成库中克隆下载，使用npm根据package.json文件自动安装需要的模块
+
+  > 默认根据package.json文件信息安装需要的模块
+
+  ```
+  npm install 
+  ```
+
+  

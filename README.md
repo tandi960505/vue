@@ -730,6 +730,229 @@ createElement(
 
 
 
+## vue-cli使用
+
+### 说明
+
+* vue-cli是一个基于webpack和webpack-dev-server之上构建的工具
+* vue-cli提供快速创建vue项目模板
+* 所谓的vue脚手架，脚手架这个词个人非常讨厌，不知道想表达什么
+
+
+
+### 安装
+
+```
+npm install -g @vue/cli
+```
+
+
+
+### 使用vue-cli构建一个项目模板
+
+> 文档：<https://cli.vuejs.org/zh/guide/>
+
+```
+vue create hello-world
+```
+
+生成的模板项目如下：
+
+![](images/16.png)
+
+
+
+### 运行项目访问一下
+
+```
+npm run serve
+```
+
+http://localhost:8080/ 
+
+如下：
+
+> 对于刚学习vue来说，这个模板也很有参考价值
+
+![](images/17.png)
+
+
+
+### 组件开发的基本概念
+
+* 可以看到使用`vue create`命令生成的项目模板下有以`.vue`结尾的文件
+* 其中vue文件就代表项目中的一个组件；组件，简单点可以理解为通用的零件，但这个零件特别之处在于它是可以复用的，即需要的时候都可以使用它
+
+
+
+vue组件格式如下：
+
+> 注意：vue组件的模板是没有名字的，通过import xxx from ‘*.vue’ 赋予变量后使用
+
+``` vue
+<!-- 组件模板 -->
+<template>
+</template>
+
+<!-- vue对象 -->
+<script>
+export default {
+}
+</script>
+
+<!-- 组件自用的style -->
+<style scope>
+</style>
+```
+
+
+
+
+
+## vue-router
+
+### 说明
+
+vue-router，是vue中的一个插件，从名字可以看出其充当路由的职责；
+
+路由，说白点就是一个”指路人“，即网站需要跳转到那里，怎么跳转，这都时router的职责；
+
+
+
+### 先用数组来实现一个简单的router
+
+index.html
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <div id="app">
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="./main.js"></script>
+```
+
+main.js
+
+``` javascript
+const NotFound = { template: '<p>Page not found</p>' }
+const Home = { template: '<p>home page</p>' }
+const About = { template: '<p>about page</p>' }
+
+// 路由列表
+const routes = {
+  '/': Home,
+  '/about': About,
+  '*': NotFound
+}
+
+// 小技巧：使用一个常量指向vue实例，就可以在chrome的console中动态修改vue实例的状态
+const vue = new Vue({
+  el: '#app',
+  data: {
+    // 默认
+    currentRoute: '/'
+  },
+  computed: {
+    ViewComponent () {
+      return routes[this.currentRoute] || NotFound
+    }
+  },
+  render (h) { 
+    return h(this.ViewComponent) 
+  }
+})
+```
+
+测试
+
+![](images/15.png)
+
+
+
+### 数组router实现简单的标签页
+
+``` html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <br><br><br>
+    <center>
+        <div id="app">
+            <menux></menux>
+            <contentx></contentx>
+        </div>
+    </center>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    const NotFound = { template: '<p>Page not found</p>' }
+    const About = { template: '<p>about page</p>' }
+    const Home = { template: '<p>Home page</p>' }
+    
+    // 路由列表
+    const routes = {
+        '/': Home,
+        '/about': About,
+    };
+
+    Vue.component('contentx', {
+        computed: {
+            ViewComponent () {
+                return routes[this.$parent.$data.currentPath] || NotFound;
+            }
+        },
+        render (h) { 
+            return h(this.ViewComponent) 
+        }
+    })
+
+    Vue.component('menux', {
+        template: `
+            <div>
+                <a href='#' @click='dispatch("/")'>Home</a>|<a href='#' @click='dispatch("/about")'>About</a>|
+                <a href='#' @click='dispatch("/other")'>Other</a>
+            </div>
+        `,
+        methods: {
+            dispatch (path) {
+                this.$parent.$data.currentPath = path;
+            }
+        }
+    });
+
+    const vue = new Vue({
+        el: '#app',
+        data: {
+            currentPath: '/'
+        }
+    });
+
+</script>
+```
+
+
+
+### 项目中使用router
+
+参考vue-cli项目模板
+
+
+
+
+
 ## 关于npm命令
 
 * 项目成库中克隆下载，使用npm根据package.json文件自动安装需要的模块

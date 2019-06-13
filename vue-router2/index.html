@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+</head>
+<body>
+    <br><br><br>
+    <center>
+        <div id="app">
+            <menux></menux>
+            <contentx></contentx>
+        </div>
+    </center>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    const NotFound = { template: '<p>Page not found</p>' }
+    const About = { template: '<p>about page</p>' }
+    const Home = { template: '<p>Home page</p>' }
+    
+    // 路由列表
+    const routes = {
+        '/': Home,
+        '/about': About,
+    };
+
+    Vue.component('contentx', {
+        computed: {
+            ViewComponent () {
+                return routes[this.$parent.$data.currentPath] || NotFound;
+            }
+        },
+        render (h) { 
+            return h(this.ViewComponent) 
+        }
+    })
+
+    Vue.component('menux', {
+        template: `
+            <div>
+                <a href='#' @click='dispatch("/")'>Home</a>|<a href='#' @click='dispatch("/about")'>About</a>|
+                <a href='#' @click='dispatch("/other")'>Other</a>
+            </div>
+        `,
+        methods: {
+            dispatch (path) {
+                this.$parent.$data.currentPath = path;
+            }
+        }
+    });
+
+    const vue = new Vue({
+        el: '#app',
+        data: {
+            currentPath: '/'
+        }
+    });
+
+</script>

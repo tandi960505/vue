@@ -4,11 +4,11 @@
   "description": "阅读下文之前建议简单看一下上一篇文件：[webpack+vue介绍](http://www.tandi.wiki/webpack_vue%E4%BB%8B%E7%BB%8D/)",
   "main": "index.js",
   "devDependencies": {
-    "css-loader": "^2.1.1",
-    "style-loader": "^0.23.1",
+    "css-loader": "^6.7.3",
+    "style-loader": "^3.3.1",
     "vue-router": "^3.0.6",
-    "webpack": "^4.32.2",
-    "webpack-cli": "^3.3.2"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
